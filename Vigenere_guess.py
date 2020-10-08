@@ -8,7 +8,6 @@ for text in cipher_text_raw:
         cipher_text += text
 
 
-
 # 计算重合指数
 def coincidence_index(cipher):
     x = [0 for i in range(26)]
