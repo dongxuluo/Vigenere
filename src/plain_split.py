@@ -1,6 +1,6 @@
 import wordninja
 
-with open('plain.txt') as f:
+with open('../bin/plain.txt') as f:
     plain_text = f.read()
 
 
@@ -12,5 +12,5 @@ def split(plain_text_raw):
     return plain_text_split
 
 
-with open('plain_split.txt', 'w') as f:
+with open('../bin/plain_split.txt', 'w') as f:
     f.write(split(plain_text))

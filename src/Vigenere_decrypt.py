@@ -1,5 +1,5 @@
 # 从文件中读入密文
-with open('cipher.txt') as f:
+with open('../static/cipher.txt') as f:
     cipher_text_raw = f.read()
 # 去掉非字母
 cipher_text = ''
@@ -22,5 +22,5 @@ def decrypt(cipher, key):
     return plain_text
 
 
-with open('plain.txt', 'w') as f:
+with open('../bin/plain.txt', 'w') as f:
     f.write(decrypt(cipher_text, 'crypt'))
