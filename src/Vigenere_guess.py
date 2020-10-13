@@ -10,10 +10,11 @@ for text in cipher_text_raw:
 
 # 计算重合指数
 def coincidence_index(cipher):
-    x = [0 for i in range(26)]
-    L = len(cipher)
+    x = [0 for i in range(26)]  # 每个字母的个数
+    L = len(cipher)  # 密文的长度
     for letter in cipher:
         x[ord(letter) - ord('a')] += 1
+    # 重合指数的无偏估计
     CI = 0
     for i in range(26):
         CI += (x[i] / L) * ((x[i] - 1) / (L - 1))
@@ -24,9 +25,11 @@ def coincidence_index(cipher):
 def coincidence_index_ex(cipher, key_len):
     cipher_groups = ['' for i in range(key_len)]
     average_CI = 0
+    # 把原文分为 key_len 组
     for i in range(len(cipher)):
         j = i % key_len
         cipher_groups[j] += cipher[i]
+    # 求每一组的重合指数并求平均
     for group in cipher_groups:
         average_CI += coincidence_index(group)
     average_CI = average_CI / key_len
@@ -35,12 +38,14 @@ def coincidence_index_ex(cipher, key_len):
 
 # 找出最可能的前 num 个密钥长度
 def guess_len(cipher, num):
-    deviation_table = [(1, coincidence_index(cipher))] + [(0, 0) for i in range(49)]
+    # 重合指数和 0.065 差距的列表
+    deviation_list = [(1, coincidence_index(cipher))] + [(0, 0) for i in range(49)]
     for i in range(1, 50):
-        deviation_table[i] = (i, abs(0.065 - coincidence_index_ex(cipher, i)))
-    deviation_table = sorted(deviation_table, key=lambda x: x[1])
+        deviation_list[i] = (i, abs(0.065 - coincidence_index_ex(cipher, i)))
+    # 按照元组第二个项排序
+    deviation_list = sorted(deviation_list, key=lambda x: x[1])
     for i in range(num):
-        print(deviation_table[i][0], end='  ')
+        print(deviation_list[i][0], end='  ')
 
 
 rank = input('请输入 key_len 可能取值的个数\n>')
